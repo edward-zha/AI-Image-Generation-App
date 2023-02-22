@@ -1,6 +1,6 @@
-import Card from "./card";
-import FormField from "./FormField";
-import Loader from "./Loader";
+import Card from "./Card.jsx";
+import FormField from "./FormField.jsx";
+import Loader from "./Loader.jsx";
 
 export {
     Card, 
