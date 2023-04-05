@@ -8,12 +8,19 @@ import { FormField, Loader } from '../components'
 const CreatePost = () => {
     const navigate = useNavigate();
     const [form, setform] = useState({
-        name: "", 
-        prompt: "", 
-        photo: "",
-    })
+        name: '', 
+        prompt: '', 
+        photo: '',
+    });
     const [generatingImg, setGeneratingImg] = useState(false);
     const [loading, setLoading] = useState(false)
+
+    const handleChange = (e) => setform({ ...form, [e.target.name]: e.target.value });
+
+    const handleSurpriseMe = () => {
+        const RandomPrompt = getRandomPrompt(form.prompt);
+        setform({...form, prompt: RandomPrompt});
+    };
 
     const generateImage = async () => {
         if (form.prompt) {
@@ -25,7 +32,7 @@ const CreatePost = () => {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({prompt: form.prompt}),
-                })
+                });
 
                 const data = await response.json();
                 setform({ ...form, photo: `data:image/jpeg;base64, ${data.photo}`})
@@ -50,10 +57,10 @@ const CreatePost = () => {
                     headers: { 
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(form),
+                    body: JSON.stringify({ ...form}),
                 });
                 await response.json();
-
+                //alert('Success'); 
                 // navigate('/');
             } catch (error) {
                 alert(error);   
@@ -63,16 +70,7 @@ const CreatePost = () => {
         } else {
             alert('Please enter a prompt to generate an image');
         }
-    }
-
-    const handleChange = (e) => {
-        setform({...form, [e.target.name]: e.target.value})
-    }
-
-    const handleSurpriseMe = () => {
-        const RandomPrompt = getRandomPrompt(form.prompt);
-        setform({...form, prompt: RandomPrompt})
-    }
+    };
 
     return (
         <section className='max-w-7xl mx-auto'>

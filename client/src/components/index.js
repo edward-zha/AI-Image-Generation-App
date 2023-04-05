@@ -5,5 +5,5 @@ import Loader from "./Loader.jsx";
 export {
     Card, 
     FormField,
-    Loader
+    Loader,
 }
